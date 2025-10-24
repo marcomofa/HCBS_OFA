@@ -1,691 +1,592 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Understanding Home & Community-Based Services (HCBS) in California</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { box-sizing: border-box; }
-        :root {
-            --ofa-white: #ffffff;
-            --ofa-blue: #2067ce;
-            --ofa-orange: #ff6d00;
-            --ofa-dark: #211c1d;
-            --ofa-gray: #565656;
-            --ofa-light-orange: #ffa76c;
-            --ofa-pale-orange: #ffd4b8;
-            --ofa-light-blue: #e2efff;
-            --ofa-medium-blue: #64a4f2;
-        }
-        .gradient-bg { background: linear-gradient(135deg, var(--ofa-blue) 0%, var(--ofa-medium-blue) 100%); }
-        .section-spacing { padding: 4rem 0; }
-        .card-hover { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .quote-card { background: var(--ofa-light-blue); border-left: 4px solid var(--ofa-blue); }
-        .logo { height: 40px; width: auto; }
-        html, body { height: 100%; }
-
-        /* Modal Styles */
-        .modal {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px);
-        }
-        .modal-content {
-            background-color: white; margin: 5% auto; padding: 0; border-radius: 12px; width: 90%;
-            max-width: 600px; max-height: 90vh; overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); animation: modalSlideIn 0.3s ease-out;
-        }
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(-50px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .modal-header { padding: 24px 24px 0 24px; border-bottom: 1px solid #e5e7eb; }
-        .modal-body { padding: 24px; }
-        .close {
-            color: #6b7280; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 1;
-            padding: 0; background: none; border: none;
-        }
-        .close:hover { color: #374151; }
-        .form-group { margin-bottom: 16px; }
-        .form-label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--ofa-dark); }
-        .form-input {
-            width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 16px;
-            transition: border-color 0.2s ease; box-sizing: border-box;
-        }
-        .form-input:focus { outline: none; border-color: var(--ofa-blue); box-shadow: 0 0 0 3px rgba(32, 103, 206, 0.1); }
-        .form-textarea { min-height: 200px; resize: vertical; font-family: inherit; }
-        .form-error { color: #dc2626; font-size: 14px; margin-top: 4px; }
-        .btn-primary {
-            background-color: var(--ofa-blue); color: white; padding: 12px 24px; border: none; border-radius: 8px;
-            font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease; width: 100%;
-        }
-        .btn-primary:hover { background-color: #1d4ed8; }
-        .btn-primary:disabled { background-color: #9ca3af; cursor: not-allowed; }
-        .btn-secondary {
-            background-color: transparent; color: var(--ofa-gray); padding: 12px 24px; border: 2px solid #e5e7eb;
-            border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-            width: 100%; margin-top: 12px;
-        }
-        .btn-secondary:hover { border-color: var(--ofa-blue); color: var(--ofa-blue); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Understanding Home & Community-Based Services (HCBS) in California</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { box-sizing: border-box; }
+    :root {
+      --ofa-white:#ffffff; --ofa-blue:#2067ce; --ofa-orange:#ff6d00; --ofa-dark:#211c1d;
+      --ofa-gray:#565656; --ofa-light-orange:#ffa76c; --ofa-pale-orange:#ffd4b8;
+      --ofa-light-blue:#e2efff; --ofa-medium-blue:#64a4f2;
+    }
+    .section-spacing{padding:4rem 0}
+    .card-hover{transition:transform .3s ease, box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-4px); box-shadow:0 20px 25px -5px rgba(0,0,0,.1)}
+    .quote-card{background:var(--ofa-light-blue); border-left:4px solid var(--ofa-blue)}
+    .logo{height:40px;width:auto}
+    /* Modal */
+    .modal{display:none; position:fixed; z-index:1000; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(5px)}
+    .modal-content{background:#fff; margin:5% auto; border-radius:12px; width:90%; max-width:600px; max-height:90vh; overflow-y:auto; box-shadow:0 25px 50px -12px rgba(0,0,0,.25); animation:modalSlideIn .3s ease-out}
+    @keyframes modalSlideIn{from{opacity:0; transform:translateY(-50px) scale(.95)} to{opacity:1; transform:translateY(0) scale(1)}}
+    .modal-header{padding:24px 24px 0 24px; border-bottom:1px solid #e5e7eb}
+    .modal-body{padding:24px}
+    .close{color:#6b7280; float:right; font-size:28px; font-weight:bold; cursor:pointer; background:none; border:none; line-height:1}
+    .close:hover{color:#374151}
+    .form-group{margin-bottom:16px}
+    .form-label{display:block; margin-bottom:6px; font-weight:600; color:var(--ofa-dark)}
+    .form-input{width:100%; padding:12px; border:2px solid #e5e7eb; border-radius:8px; font-size:16px; transition:border-color .2s ease; box-sizing:border-box}
+    .form-input:focus{outline:none; border-color:var(--ofa-blue); box-shadow:0 0 0 3px rgba(32,103,206,.1)}
+    .form-textarea{min-height:220px; resize:vertical; font-family:inherit}
+    .form-error{color:#dc2626; font-size:14px; margin-top:4px}
+    .btn-primary{background:var(--ofa-blue); color:#fff; padding:12px 24px; border:none; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; transition:background-color .2s ease; width:100%}
+    .btn-primary:hover{background:#1d4ed8}
+    .btn-primary:disabled{background:#9ca3af; cursor:not-allowed}
+    .btn-secondary{background:transparent; color:var(--ofa-gray); padding:12px 24px; border:2px solid #e5e7eb; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; transition:all .2s ease; width:100%; margin-top:12px}
+    .btn-secondary:hover{border-color:var(--ofa-blue); color:var(--ofa-blue)}
+  </style>
 </head>
 <body class="font-sans text-gray-800 leading-relaxed">
-    <!-- Header -->
-    <header style="background-color: var(--ofa-white);" class="shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div class="flex justify-between items-center">
-                <a href="https://optionsforall.org/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://optionsforall.org/wp-content/themes/elevation_theme/assets/images/logo.svg" 
-                         alt="Options For All Logo" 
-                         class="logo hover:opacity-80 transition-opacity"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="text-2xl font-bold hidden hover:opacity-80 transition-opacity" style="color: var(--ofa-blue);">Options For All</div>
-                </a>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#why-hcbs" style="color: var(--ofa-gray);" class="hover:opacity-80 transition-opacity">What Are HCBS?</a>
-                    <a href="#priorities" style="color: var(--ofa-gray);" class="hover:opacity-80 transition-opacity">How California Supports HCBS</a>
-                    <a href="#impact" style="color: var(--ofa-gray);" class="hover:opacity-80 transition-opacity">Community Impact</a>
-                    <a href="#help" style="color: var(--ofa-gray);" class="hover:opacity-80 transition-opacity">Get Involved</a>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="relative text-white overflow-hidden" style="background: linear-gradient(135deg, rgba(32, 103, 206, 0.9) 0%, rgba(100, 164, 242, 0.9) 100%), url('https://optionsforall.org/wp-content/themes/elevation_theme/assets/images/program-inquiry_photo-background.jpg'); background-size: cover; background-position: center; background-attachment: fixed;">
-        <div class="absolute inset-0 bg-black bg-opacity-30"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            <div class="text-center max-w-4xl mx-auto">
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
-                    Understanding Home & Community-Based Services (HCBS) in California
-                </h1>
-                <p class="text-xl md:text-2xl mb-10 leading-relaxed text-white drop-shadow-md">
-                    HCBS programs help people with intellectual and developmental disabilities live, work, and belong in their communities. Learn how these programs support inclusion, independence, and opportunity across California.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="openEmailModal()" 
-                            style="background-color: var(--ofa-orange); color: var(--ofa-white);" 
-                            class="px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg">
-                        📧 Educate Your Legislator About HCBS
-                    </button>
-                    <button onclick="document.getElementById('priorities').scrollIntoView({behavior: 'smooth'})" 
-                            style="border: 2px solid var(--ofa-white); color: var(--ofa-white); background-color: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);" 
-                            class="px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-80 transition-opacity">
-                        Learn About HCBS
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Header -->
+  <header class="shadow-sm sticky top-0 z-50" style="background-color:var(--ofa-white);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <a href="https://optionsforall.org/" target="_blank" rel="noopener noreferrer">
+          <img src="https://optionsforall.org/wp-content/themes/elevation_theme/assets/images/logo.svg"
+               alt="Options For All Logo"
+               class="logo hover:opacity-80 transition-opacity"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <div class="text-2xl font-bold hidden hover:opacity-80 transition-opacity" style="color:var(--ofa-blue);">Options For All</div>
+        </a>
+        <nav class="hidden md:flex space-x-8">
+          <a href="#why-hcbs" class="hover:opacity-80 transition-opacity" style="color:var(--ofa-gray);">What Are HCBS?</a>
+          <a href="#support" class="hover:opacity-80 transition-opacity" style="color:var(--ofa-gray);">How California Supports HCBS</a>
+          <a href="#impact" class="hover:opacity-80 transition-opacity" style="color:var(--ofa-gray);">Community Impact</a>
+          <a href="#involved" class="hover:opacity-80 transition-opacity" style="color:var(--ofa-gray);">Get Involved</a>
+        </nav>
+      </div>
+    </div>
+  </header>
 
-    <!-- Section 1: What Are Home & Community-Based Services? -->
-    <section id="why-hcbs" class="section-spacing" style="background-color: var(--ofa-white);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-6" style="color: var(--ofa-dark);">What Are HCBS?</h2>
-                <p class="text-xl" style="color: var(--ofa-gray);">Supporting independence and community inclusion for all Californians</p>
-            </div>
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h3 class="text-2xl font-bold mb-6" style="color: var(--ofa-dark);">Overview</h3>
-                    <p class="text-lg mb-6 leading-relaxed" style="color: var(--ofa-gray);">
-                        Home & Community-Based Services (HCBS) offer individualized supports that empower people with disabilities to thrive in their communities. These services can include employment support, daily living assistance, and community integration — all designed to help individuals lead self-directed, meaningful lives.
-                    </p>
-                    <p class="text-lg mb-6 leading-relaxed" style="color: var(--ofa-gray);">
-                        These programs help people live independently, pursue meaningful work, build relationships, and contribute to their communities.
-                    </p>
-                    <div class="p-6 rounded-lg" style="background-color: var(--ofa-light-blue);">
-                        <p class="text-lg font-semibold" style="color: var(--ofa-dark);">
-                            When people receive supports in their own communities, everyone benefits.
-                        </p>
-                    </div>
-                </div>
-                <div class="space-y-6">
-                    <img src="https://optionsforall.org/wp-content/uploads/2022/05/Untitled-design-2.png" 
-                         alt="Community members with disabilities participating in activities" 
-                         class="w-full h-auto rounded-xl shadow-lg"
-                         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                    <div class="hidden p-8 rounded-xl shadow-lg text-center" style="background-color: var(--ofa-light-blue);">
-                        <div class="text-6xl mb-4">🤝</div>
-                        <p class="text-lg font-semibold" style="color: var(--ofa-dark);">Community Connection</p>
-                        <p class="text-sm mt-2" style="color: var(--ofa-gray);">Supporting independence and inclusion</p>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-4 rounded-lg shadow-md text-center" style="background-color: var(--ofa-pale-orange);">
-                            <div class="text-2xl mb-1">🏠</div>
-                            <h4 class="font-semibold text-sm" style="color: var(--ofa-dark);">Home-Based</h4>
-                            <p class="text-xs mt-1" style="color: var(--ofa-gray);">Familiar environments</p>
-                        </div>
-                        <div class="p-4 rounded-lg shadow-md text-center" style="background-color: var(--ofa-light-blue);">
-                            <div class="text-2xl mb-1">🤝</div>
-                            <h4 class="font-semibold text-sm" style="color: var(--ofa-dark);">Community</h4>
-                            <p class="text-xs mt-1" style="color: var(--ofa-gray);">Connected neighbors</p>
-                        </div>
-                        <div class="p-4 rounded-lg shadow-md text-center" style="background-color: var(--ofa-light-blue);">
-                            <div class="text-2xl mb-1">💼</div>
-                            <h4 class="font-semibold text-sm" style="color: var(--ofa-dark);">Employment</h4>
-                            <p class="text-xs mt-1" style="color: var(--ofa-gray);">Work opportunities</p>
-                        </div>
-                        <div class="p-4 rounded-lg shadow-md text-center" style="background-color: var(--ofa-pale-orange);">
-                            <div class="text-2xl mb-1">🎯</div>
-                            <h4 class="font-semibold text-sm" style="color: var(--ofa-dark);">Independence</h4>
-                            <p class="text-xs mt-1" style="color: var(--ofa-gray);">Personal choice</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Hero -->
+  <section class="relative text-white overflow-hidden"
+           style="background:linear-gradient(135deg, rgba(32,103,206,.9) 0%, rgba(100,164,242,.9) 100%), url('https://optionsforall.org/wp-content/themes/elevation_theme/assets/images/program-inquiry_photo-background.jpg'); background-size:cover; background-position:center; background-attachment:fixed;">
+    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="text-center max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white drop-shadow-lg">
+          Understanding Home & Community-Based Services (HCBS) in California
+        </h1>
+        <p class="text-xl md:text-2xl mb-10 leading-relaxed text-white drop-shadow-md">
+          HCBS programs help people with intellectual and developmental disabilities live, work, and belong in their communities. Learn how these programs support inclusion, independence, and opportunity across California.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button onclick="openEmailModal()"
+                  class="px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg"
+                  style="background-color:var(--ofa-orange); color:var(--ofa-white);">
+            📧 Educate Your Legislator About HCBS
+          </button>
+          <button onclick="document.getElementById('support').scrollIntoView({behavior:'smooth'})"
+                  class="px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-80 transition-opacity"
+                  style="border:2px solid var(--ofa-white); color:var(--ofa-white); background-color:rgba(255,255,255,.1); backdrop-filter:blur(10px);">
+            Learn About HCBS
+          </button>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Section 2: How California Supports HCBS -->
-    <section id="priorities" class="section-spacing" style="background-color: var(--ofa-white);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-4" style="color: var(--ofa-dark);">How California Supports HCBS</h2>
-                <p class="text-xl" style="color: var(--ofa-gray);">Information for understanding current efforts that help sustain community-based services</p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-8 rounded-xl card-hover" style="background-color: var(--ofa-pale-orange);">
-                    <div class="text-4xl mb-4">🏛️</div>
-                    <h3 class="text-xl font-semibold mb-4" style="color: var(--ofa-dark);">Context & Community Services</h3>
-                    <p class="leading-relaxed" style="color: var(--ofa-gray);">
-                        Federal and state policy environments can affect community-based services. California’s commitment to person-centered support helps individuals and families remain connected and supported where they live.
-                    </p>
-                </div>
-                <div class="p-8 rounded-xl card-hover" style="background-color: var(--ofa-light-blue);">
-                    <div class="text-4xl mb-4">📊</div>
-                    <h3 class="text-xl font-semibold mb-4" style="color: var(--ofa-dark);">Rate Reviews & Stability</h3>
-                    <p class="leading-relaxed" style="color: var(--ofa-gray);">
-                        Periodic rate reviews help the state understand the costs of providing quality services. Clear, predictable structures support program planning and continuity for the people who rely on them.
-                    </p>
-                </div>
-                <div class="p-8 rounded-xl card-hover" style="background-color: var(--ofa-pale-orange);">
-                    <div class="text-4xl mb-4">👥</div>
-                    <h3 class="text-xl font-semibold mb-4" style="color: var(--ofa-dark);">Direct Support Professionals</h3>
-                    <p class="leading-relaxed" style="color: var(--ofa-gray);">
-                        DSPs are essential to person-centered supports. A stable, well-resourced workforce helps ensure consistent, quality services for individuals and families across the state.
-                    </p>
-                </div>
-            </div>
+  <!-- What Are HCBS -->
+  <section id="why-hcbs" class="section-spacing" style="background-color:var(--ofa-white);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-6" style="color:var(--ofa-dark);">What Are HCBS?</h2>
+        <p class="text-xl" style="color:var(--ofa-gray);">Supporting independence and community inclusion for all Californians</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h3 class="text-2xl font-bold mb-6" style="color:var(--ofa-dark);">Overview</h3>
+          <p class="text-lg mb-6 leading-relaxed" style="color:var(--ofa-gray);">
+            Home & Community-Based Services (HCBS) offer individualized supports delivered in homes and communities rather than institutions. Services are tailored to personal goals so people can build skills, relationships, and independence close to family and community.
+          </p>
+          <p class="text-lg mb-6 leading-relaxed" style="color:var(--ofa-gray);">
+            Examples include employment services, independent living skills, community engagement, personal assistance, assistive technology, transportation, and caregiver education.
+          </p>
+          <div class="p-6 rounded-lg" style="background-color:var(--ofa-light-blue);">
+            <p class="text-lg font-semibold" style="color:var(--ofa-dark);">
+              When people receive supports in their own communities, everyone benefits.
+            </p>
+          </div>
         </div>
-    </section>
-
-    <!-- Section 3: Community Impact -->
-    <section id="impact" class="section-spacing" style="background-color: var(--ofa-light-blue);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-6" style="color: var(--ofa-dark);">HCBS Creates Opportunities That Change Lives</h2>
-                
-                <!-- Video Button Section -->
-                <div class="mb-12">
-                    <div class="max-w-4xl mx-auto text-center">
-                        <div class="p-12 rounded-xl shadow-2xl" style="background: linear-gradient(135deg, var(--ofa-blue) 0%, var(--ofa-medium-blue) 100%);">
-                            <div class="text-6xl mb-6">🎥</div>
-                            <h3 class="text-2xl font-bold mb-4 text-white">See HCBS in Action</h3>
-                            <p class="text-lg mb-8 text-white opacity-90">Watch real stories of how community-based services transform lives</p>
-                            <a href="https://www.youtube.com/embed/e9ye1MBVUBE?si=pgJGrM2ZYpr8jbcV" 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               class="inline-block px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg"
-                               style="background-color: var(--ofa-orange); color: var(--ofa-white); text-decoration: none;">
-                                ▶️ Watch Video
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <div class="space-y-6">
+          <img src="https://optionsforall.org/wp-content/uploads/2022/05/Untitled-design-2.png"
+               alt="Community members with disabilities participating in activities"
+               class="w-full h-auto rounded-xl shadow-lg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <div class="hidden p-8 rounded-xl shadow-lg text-center" style="background-color:var(--ofa-light-blue);">
+            <div class="text-6xl mb-4">🤝</div>
+            <p class="text-lg font-semibold" style="color:var(--ofa-dark);">Community Connection</p>
+            <p class="text-sm mt-2" style="color:var(--ofa-gray);">Supporting independence and inclusion</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 rounded-lg shadow-md text-center" style="background-color:var(--ofa-pale-orange);">
+              <div class="text-2xl mb-1">🏠</div><h4 class="font-semibold text-sm" style="color:var(--ofa-dark);">Home-Based</h4>
+              <p class="text-xs mt-1" style="color:var(--ofa-gray);">Familiar environments</p>
             </div>
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <p class="text-lg mb-8 leading-relaxed" style="color: var(--ofa-gray);">
-                        From finding meaningful jobs to building friendships, HCBS programs make community participation possible. Employment Services and Community Engagement programs support purpose, belonging, and independence.
-                    </p>
-                    <div class="quote-card p-6 rounded-lg">
-                        <div class="text-2xl mb-2" style="color: var(--ofa-blue);">"</div>
-                        <p class="text-lg italic mb-4" style="color: var(--ofa-dark);">Because of Options For All, I found my first job.</p>
-                        <p class="text-sm" style="color: var(--ofa-gray);">— OFA Client</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="p-6 rounded-lg shadow-md text-center" style="background-color: var(--ofa-white);">
-                        <div class="text-3xl mb-2">💼</div>
-                        <h4 class="font-semibold" style="color: var(--ofa-dark);">Employment</h4>
-                        <p class="text-sm mt-2" style="color: var(--ofa-gray);">Meaningful work opportunities</p>
-                    </div>
-                    <div class="p-6 rounded-lg shadow-md text-center" style="background-color: var(--ofa-white);">
-                        <div class="text-3xl mb-2">🤝</div>
-                        <h4 class="font-semibold" style="color: var(--ofa-dark);">Community</h4>
-                        <p class="text-sm mt-2" style="color: var(--ofa-gray);">Building lasting friendships</p>
-                    </div>
-                    <div class="p-6 rounded-lg shadow-md text-center" style="background-color: var(--ofa-white);">
-                        <div class="text-3xl mb-2">🎯</div>
-                        <h4 class="font-semibold" style="color: var(--ofa-dark);">Skills</h4>
-                        <p class="text-sm mt-2" style="color: var(--ofa-gray);">Developing independence</p>
-                    </div>
-                    <div class="p-6 rounded-lg shadow-md text-center" style="background-color: var(--ofa-white);">
-                        <div class="text-3xl mb-2">🏆</div>
-                        <h4 class="font-semibold" style="color: var(--ofa-dark);">Achievement</h4>
-                        <p class="text-sm mt-2" style="color: var(--ofa-gray);">Reaching personal goals</p>
-                    </div>
-                </div>
+            <div class="p-4 rounded-lg shadow-md text-center" style="background-color:var(--ofa-light-blue);">
+              <div class="text-2xl mb-1">🤝</div><h4 class="font-semibold text-sm" style="color:var(--ofa-dark);">Community</h4>
+              <p class="text-xs mt-1" style="color:var(--ofa-gray);">Connected neighbors</p>
             </div>
+            <div class="p-4 rounded-lg shadow-md text-center" style="background-color:var(--ofa-light-blue);">
+              <div class="text-2xl mb-1">💼</div><h4 class="font-semibold text-sm" style="color:var(--ofa-dark);">Employment</h4>
+              <p class="text-xs mt-1" style="color:var(--ofa-gray);">Work opportunities</p>
+            </div>
+            <div class="p-4 rounded-lg shadow-md text-center" style="background-color:var(--ofa-pale-orange);">
+              <div class="text-2xl mb-1">🎯</div><h4 class="font-semibold text-sm" style="color:var(--ofa-dark);">Independence</h4>
+              <p class="text-xs mt-1" style="color:var(--ofa-gray);">Personal choice</p>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Section 4: Get Involved -->
-    <section id="help" class="section-spacing" style="background-color: var(--ofa-white);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold mb-6" style="color: var(--ofa-dark);">Get Involved</h2>
-            </div>
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="p-8 rounded-xl" style="background-color: var(--ofa-pale-orange);">
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--ofa-dark);">For Families and Staff</h3>
-                    <p class="mb-6 leading-relaxed" style="color: var(--ofa-gray);">
-                        Personal experiences help illustrate the importance of community-based programs like HCBS. You can share how HCBS has affected your life, work, or family to help leaders and the public understand community impact.
-                    </p>
-                    <div class="space-y-3">
-                        <button onclick="openEmailModal()" 
-                                class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
-                                style="background-color: var(--ofa-blue); color: var(--ofa-white);">
-                            📧 Share Your Story With State Leaders
-                        </button>
-                        <button id="story-form"
-                                onclick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=YRPNOiNaD064TtYmvbMSXmTrvW8Vv2ZPntPzkZ8Bk8lUMFMyRUxMOUNCNVpVWjE5QTVFUVNDNTZQMC4u','_blank')"
-                                class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
-                                style="background-color: var(--ofa-orange); color: var(--ofa-white);">
-                            📝 Share Your Story Online
-                        </button>
-                    </div>
-                </div>
-                <div class="p-8 rounded-xl" style="background-color: var(--ofa-light-blue);">
-                    <h3 class="text-2xl font-semibold mb-4" style="color: var(--ofa-dark);">For State Leaders</h3>
-                    <p class="mb-6 leading-relaxed" style="color: var(--ofa-gray);">
-                        This page provides stories and program information about Home & Community-Based Services (HCBS) in California, including the role of Direct Support Professionals and how community-based supports enhance inclusion and independence.
-                    </p>
-                    <div class="space-y-3">
-                        <button onclick="window.open('https://www.canva.com/design/DAG2p3K6vI8/Iyb1Z8uuxI6LWOJXs179Cw/view?utm_content=DAG2p3K6vI8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h994fb862a6','_blank')"
-                                class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
-                                style="background-color: var(--ofa-orange); color: var(--ofa-white);">
-                            📋 Program Information & Toolkit
-                        </button>
-                        <button onclick="document.getElementById('priorities').scrollIntoView({behavior: 'smooth'})" 
-                                class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-80 transition-opacity"
-                                style="border: 2px solid var(--ofa-blue); color: var(--ofa-blue); background-color: transparent;">
-                            📊 Learn How California Supports HCBS
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <!-- How California Supports HCBS -->
+  <section id="support" class="section-spacing" style="background-color:var(--ofa-white);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4" style="color:var(--ofa-dark);">How California Supports HCBS</h2>
+        <p class="text-xl" style="color:var(--ofa-gray);">Information to understand current efforts that help sustain community-based services</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-8 rounded-xl card-hover" style="background-color:var(--ofa-pale-orange);">
+          <div class="text-4xl mb-4">🏛️</div>
+          <h3 class="text-xl font-semibold mb-4" style="color:var(--ofa-dark);">Context & Community Services</h3>
+          <p class="leading-relaxed" style="color:var(--ofa-gray);">
+            Federal and state policy environments can affect community-based services. California’s commitment to person-centered support helps individuals and families remain connected and supported where they live.
+          </p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="section-spacing" style="background-color: var(--ofa-dark); color: var(--ofa-white);">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-6">
-                <p class="text-sm opacity-90">
-                    Options For All is a 501(c)(3) nonprofit organization. This page is for educational and informational purposes only and is not intended to influence legislation.
-                </p>
-            </div>
-            <div class="pt-6" style="border-top: 1px solid var(--ofa-gray);">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="text-2xl font-bold mb-4 md:mb-0" style="color: var(--ofa-orange);">Options For All</div>
-                    <div class="text-center md:text-right">
-                        <p class="mb-2" style="color: var(--ofa-white);">
-                            <a href="mailto:info@optionsforall.org" class="hover:opacity-80 transition-opacity" style="color: var(--ofa-white);">
-                                info@optionsforall.org
-                            </a>
-                        </p>
-                        <p style="color: var(--ofa-white);">
-                            <a href="https://OptionsForAll.org" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity" style="color: var(--ofa-white);">
-                                OptionsForAll.org
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="p-8 rounded-xl card-hover" style="background-color:var(--ofa-light-blue);">
+          <div class="text-4xl mb-4">📊</div>
+          <h3 class="text-xl font-semibold mb-4" style="color:var(--ofa-dark);">Rate Reviews & Stability</h3>
+          <p class="leading-relaxed" style="color:var(--ofa-gray);">
+            Periodic rate reviews help the state understand the costs of providing quality services. Clear, predictable structures support program planning and continuity for the people who rely on them.
+          </p>
         </div>
-    </footer>
+        <div class="p-8 rounded-xl card-hover" style="background-color:var(--ofa-pale-orange);">
+          <div class="text-4xl mb-4">👥</div>
+          <h3 class="text-xl font-semibold mb-4" style="color:var(--ofa-dark);">Direct Support Professionals</h3>
+          <p class="leading-relaxed" style="color:var(--ofa-gray);">
+            DSPs provide day-to-day coaching, skill-building, and support at home, work, and in the community. A stable, well-prepared workforce contributes to consistent, person-centered services and better outcomes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Email Modal -->
-    <div id="emailModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 style="color: var(--ofa-dark); margin: 0; font-size: 24px; font-weight: bold;">Educate Your Legislator About HCBS</h2>
-                <button class="close" onclick="closeEmailModal()">&times;</button>
+  <!-- Community Impact -->
+  <section id="impact" class="section-spacing" style="background-color:var(--ofa-light-blue);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-6" style="color:var(--ofa-dark);">HCBS Creates Opportunities That Change Lives</h2>
+        <div class="mb-12">
+          <div class="max-w-4xl mx-auto text-center">
+            <div class="p-12 rounded-xl shadow-2xl" style="background:linear-gradient(135deg, var(--ofa-blue) 0%, var(--ofa-medium-blue) 100%);">
+              <div class="text-6xl mb-6">🎥</div>
+              <h3 class="text-2xl font-bold mb-4 text-white">See HCBS in Action</h3>
+              <p class="text-lg mb-8 text-white opacity-90">Watch real stories of how community-based services transform lives</p>
+              <a href="https://www.youtube.com/embed/e9ye1MBVUBE?si=pgJGrM2ZYpr8jbcV"
+                 target="_blank" rel="noopener noreferrer"
+                 class="inline-block px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg"
+                 style="background-color:var(--ofa-orange); color:#fff; text-decoration:none;">
+                ▶️ Watch Video
+              </a>
             </div>
-            <div class="modal-body">
-                <form id="emailForm" onsubmit="submitEmailForm(event)">
-                    <div class="form-group">
-                        <label class="form-label" for="firstName">First Name *</label>
-                        <input type="text" id="firstName" name="firstName" class="form-input" required>
-                        <div class="form-error" id="firstNameError"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="lastName">Last Name *</label>
-                        <input type="text" id="lastName" name="lastName" class="form-input" required>
-                        <div class="form-error" id="lastNameError"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" class="form-input" required>
-                        <div class="form-error" id="emailError"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" class="form-input">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="message">Message *</label>
-                        <textarea id="message" name="message" class="form-input form-textarea" required>Subject: Stories and Information About Home & Community-Based Services (HCBS) in California
+          </div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-lg mb-8 leading-relaxed" style="color:var(--ofa-gray);">
+            From finding meaningful jobs to building friendships, HCBS programs make community participation possible. Employment Services and Community Engagement programs support purpose, belonging, and independence.
+          </p>
+          <div class="quote-card p-6 rounded-lg">
+            <div class="text-2xl mb-2" style="color:var(--ofa-blue);">"</div>
+            <p class="text-lg italic mb-4" style="color:var(--ofa-dark);">Because of Options For All, I found my first job.</p>
+            <p class="text-sm" style="color:var(--ofa-gray);">— OFA Client</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-6 rounded-lg shadow-md text-center" style="background:#fff;">
+            <div class="text-3xl mb-2">💼</div><h4 class="font-semibold" style="color:var(--ofa-dark);">Employment</h4>
+            <p class="text-sm mt-2" style="color:var(--ofa-gray);">Meaningful work opportunities</p>
+          </div>
+          <div class="p-6 rounded-lg shadow-md text-center" style="background:#fff;">
+            <div class="text-3xl mb-2">🤝</div><h4 class="font-semibold" style="color:var(--ofa-dark);">Community</h4>
+            <p class="text-sm mt-2" style="color:var(--ofa-gray);">Building lasting friendships</p>
+          </div>
+          <div class="p-6 rounded-lg shadow-md text-center" style="background:#fff;">
+            <div class="text-3xl mb-2">🎯</div><h4 class="font-semibold" style="color:var(--ofa-dark);">Skills</h4>
+            <p class="text-sm mt-2" style="color:var(--ofa-gray);">Developing independence</p>
+          </div>
+          <div class="p-6 rounded-lg shadow-md text-center" style="background:#fff;">
+            <div class="text-3xl mb-2">🏆</div><h4 class="font-semibold" style="color:var(--ofa-dark);">Achievement</h4>
+            <p class="text-sm mt-2" style="color:var(--ofa-gray);">Reaching personal goals</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Get Involved -->
+  <section id="involved" class="section-spacing" style="background-color:var(--ofa-white);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-6" style="color:var(--ofa-dark);">Get Involved</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="p-8 rounded-xl" style="background-color:var(--ofa-pale-orange);">
+          <h3 class="text-2xl font-semibold mb-4" style="color:var(--ofa-dark);">For Families and Staff</h3>
+          <p class="mb-6 leading-relaxed" style="color:var(--ofa-gray);">
+            Personal experiences help illustrate the importance of community-based programs like HCBS. You can share how HCBS has affected your life, work, or family to help leaders and the public understand community impact.
+          </p>
+          <div class="space-y-3">
+            <button onclick="openEmailModal()"
+                    class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                    style="background-color:var(--ofa-blue); color:#fff;">
+              📧 Share Your Story With State Leaders
+            </button>
+            <button id="story-form"
+                    onclick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=YRPNOiNaD064TtYmvbMSXmTrvW8Vv2ZPntPzkZ8Bk8lUMFMyRUxMOUNCNVpVWjE5QTVFUVNDNTZQMC4u','_blank')"
+                    class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                    style="background-color:var(--ofa-orange); color:#fff;">
+              📝 Share Your Story Online
+            </button>
+          </div>
+        </div>
+
+        <div class="p-8 rounded-xl" style="background-color:var(--ofa-light-blue);">
+          <h3 class="text-2xl font-semibold mb-4" style="color:var(--ofa-dark);">For State Leaders</h3>
+          <p class="mb-6 leading-relaxed" style="color:var(--ofa-gray);">
+            This page provides stories and program information about Home & Community-Based Services (HCBS) in California, including the role of Direct Support Professionals and how community-based supports enhance inclusion and independence.
+          </p>
+          <div class="space-y-3">
+            <button onclick="window.open('https://www.canva.com/design/DAG2p3K6vI8/Iyb1Z8uuxI6LWOJXs179Cw/view?utm_content=DAG2p3K6vI8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h994fb862a6','_blank')"
+                    class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                    style="background-color:var(--ofa-orange); color:#fff;">
+              📋 Program Information & Toolkit
+            </button>
+            <button onclick="document.getElementById('support').scrollIntoView({behavior:'smooth'})"
+                    class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-80 transition-opacity"
+                    style="border:2px solid var(--ofa-blue); color:var(--ofa-blue); background:transparent;">
+              📊 Learn How California Supports HCBS
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="section-spacing" style="background-color:var(--ofa-dark); color:#fff;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-6">
+        <p class="text-sm opacity-90">
+          Options For All is a 501(c)(3) nonprofit organization. This page is for educational and informational purposes only and is not intended to influence legislation.
+        </p>
+      </div>
+      <div class="pt-6" style="border-top:1px solid var(--ofa-gray);">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="text-2xl font-bold mb-4 md:mb-0" style="color:var(--ofa-orange);">Options For All</div>
+          <div class="text-center md:text-right">
+            <p class="mb-2">
+              <a href="mailto:info@optionsforall.org" class="hover:opacity-80 transition-opacity" style="color:#fff;">
+                info@optionsforall.org
+              </a>
+            </p>
+            <p>
+              <a href="https://OptionsForAll.org" target="_blank" rel="noopener noreferrer" class="hover:opacity-80 transition-opacity" style="color:#fff;">
+                OptionsForAll.org
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Email Modal -->
+  <div id="emailModal" class="modal" aria-modal="true" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 style="color:var(--ofa-dark); margin:0; font-size:24px; font-weight:bold;">Educate Your Legislator About HCBS</h2>
+        <button class="close" onclick="closeEmailModal()" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="emailForm" onsubmit="submitEmailForm(event)">
+          <div class="form-group">
+            <label class="form-label" for="firstName">First Name *</label>
+            <input type="text" id="firstName" name="firstName" class="form-input" required>
+            <div class="form-error" id="firstNameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="lastName">Last Name *</label>
+            <input type="text" id="lastName" name="lastName" class="form-input" required>
+            <div class="form-error" id="lastNameError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="email">Email Address *</label>
+            <input type="email" id="email" name="email" class="form-input" required>
+            <div class="form-error" id="emailError"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message *</label>
+            <textarea id="message" name="message" class="form-input form-textarea" required>Subject: Information on Home & Community-Based Services (HCBS) in California
 
 Dear California State Leaders,
 
-I am writing to share information about how Home & Community-Based Services (HCBS) benefit people with intellectual and developmental disabilities in my community. These programs promote independence, inclusion, and meaningful employment for thousands of Californians.
+I am writing to share information about Home & Community-Based Services (HCBS) in California and how these programs support people with intellectual and developmental disabilities (IDD) to live, work, and belong in their communities.
 
-I hope this message helps provide insight into the importance of person-centered supports and community-based programs that strengthen opportunities for all Californians.
+What HCBS are:
+• HCBS refers to a range of person-centered supports delivered in homes and communities rather than institutions.
+• Services are tailored to individual goals and needs so people can build skills, relationships, and independence close to family and community.
 
-Thank you for your leadership and commitment to inclusion.
+Examples of supports people may receive:
+• Employment services (job development, on-the-job coaching, workplace accommodations).
+• Independent living skills (budgeting, cooking, travel training, personal organization).
+• Community engagement (volunteering, social participation, recreation, civic activities).
+• Personal assistance and health-related supports delivered in community settings.
+• Assistive technology and transportation that make daily life and work more accessible.
+• Family and caregiver education that promotes stability and inclusion.
+
+Role of Direct Support Professionals (DSPs):
+• DSPs provide day-to-day coaching, skill-building, and support that help people succeed at home, at work, and in the community.
+• A stable, trained DSP workforce contributes to consistent, high-quality services and better outcomes for individuals and families.
+
+Common outcomes associated with HCBS:
+• Increased independence and self-determination.
+• Competitive, integrated employment opportunities.
+• Stronger social connections and reduced isolation.
+• Greater family stability and engagement with community life.
+
+Why this matters for communities:
+• When people receive supports where they live, communities benefit through inclusion, local workforce participation, and the contributions of people with disabilities in civic and economic life.
+
+Neutral resources for additional background:
+• California Department of Developmental Services (DDS): HCBS information and guidance.
+• Administration for Community Living (ACL): Federal overview of person-centered, community-based supports.
+• Centers for Medicare & Medicaid Services (CMS): General HCBS program descriptions.
+
+I hope this information is helpful as you engage with constituents and programs that advance inclusion and opportunity in our state. Thank you for your time and for your service to Californians.
 
 Sincerely,</textarea>
-                        <div class="form-error" id="messageError"></div>
-                    </div>
-                    
-                    <button type="submit" class="btn-primary" id="submitBtn">Send Email</button>
-                    <button type="button" class="btn-secondary" onclick="fallbackMailto()">Use Default Email App Instead</button>
-                    <p class="text-sm mt-4" style="color:#6b7280;">
-                        This message is intended to share personal experiences and information about community-based programs.
-                    </p>
-                </form>
-            </div>
-        </div>
+            <div class="form-error" id="messageError"></div>
+          </div>
+
+          <button type="submit" class="btn-primary" id="submitBtn">Send Email</button>
+          <button type="button" class="btn-secondary" onclick="fallbackMailto()">Use Default Email App Instead</button>
+          <p class="text-sm mt-4" style="color:#6b7280;">
+            This message is intended to share personal experiences and information about community-based programs.
+          </p>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        // =========================
-        // Recipients configuration
-        // =========================
-        const PRIMARY_TO = 'governor@ca.gov'; // "To" field
-        // BCC list (deduped from your list)
-        const RECIPIENTS = Array.from(new Set([
-            // Senators
-            'Senator.Allen@Senate.CA.gov',
-            'Senator.Alvarado-Gil@senate.ca.gov',
-            'Senator.Archuleta@senate.ca.gov',
-            'senator.arreguin@senate.ca.gov',
-            'senator.ashby@senate.ca.gov',
-            'senator.becker@senate.ca.gov',
-            'senator.blakespear@senate.ca.gov',
-            'senator.cabaldon@senate.ca.gov',
-            'Senator.caballero@senate.ca.gov',
-            'senator.choi@senate.ca.gov',
-            'senator.cortese@senate.ca.gov',
-            'senator.dahle@senate.ca.gov',
-            'senator.durazo@senate.ca.gov',
-            'senator.gonzalez@senate.ca.gov',
-            'senator.grayson@senate.ca.gov',
-            'senator.grove@senate.ca.gov',
-            'senator.hurtado@senate.ca.gov',
-            'senator.jones@senate.ca.gov',
-            'senator.laird@senate.ca.gov',
-            'senator.limon@senate.ca.gov',
-            'senator.mcguire@senate.ca.gov',
-            'senator.mcnerney@senate.ca.gov',
-            'senator.menjivar@senate.ca.gov',
-            'senator.niello@senate.ca.gov',
-            'Senator.OchoaBogh@Senate.ca.gov',
-            'senator.padilla@senate.ca.gov',
-            'senator.perez@senate.ca.gov',
-            'senator.reyes@senate.ca.gov',
-            'senator.rubio@senate.ca.gov',
-            'senator.seyarto@senate.ca.gov',
-            'senator.smallwood-cuevas@senate.ca.gov',
-            'senator.stern@senate.ca.gov',
-            'senator.strickland@senate.ca.gov',
-            'senator.umberg@senate.ca.gov',
-            'senator.martinez@senate.ca.gov',
-            'senator.wahab@senate.ca.gov',
-            'senator.weberpierson@senate.ca.gov',
-            'senator.wiener@senate.ca.gov',
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    // Primary recipient and BCC list (deduped)
+    const PRIMARY_TO = 'governor@ca.gov';
+    const RECIPIENTS = Array.from(new Set([
+      // Senators
+      'Senator.Allen@Senate.CA.gov','Senator.Alvarado-Gil@senate.ca.gov','Senator.Archuleta@senate.ca.gov',
+      'senator.arreguin@senate.ca.gov','senator.ashby@senate.ca.gov','senator.becker@senate.ca.gov',
+      'senator.blakespear@senate.ca.gov','senator.cabaldon@senate.ca.gov','Senator.caballero@senate.ca.gov',
+      'senator.choi@senate.ca.gov','senator.cortese@senate.ca.gov','senator.dahle@senate.ca.gov',
+      'senator.durazo@senate.ca.gov','senator.gonzalez@senate.ca.gov','senator.grayson@senate.ca.gov',
+      'senator.grove@senate.ca.gov','senator.hurtado@senate.ca.gov','senator.jones@senate.ca.gov',
+      'senator.laird@senate.ca.gov','senator.limon@senate.ca.gov','senator.mcguire@senate.ca.gov',
+      'senator.mcnerney@senate.ca.gov','senator.menjivar@senate.ca.gov','senator.niello@senate.ca.gov',
+      'Senator.OchoaBogh@Senate.ca.gov','senator.padilla@senate.ca.gov','senator.perez@senate.ca.gov',
+      'senator.reyes@senate.ca.gov','senator.rubio@senate.ca.gov','senator.seyarto@senate.ca.gov',
+      'senator.smallwood-cuevas@senate.ca.gov','senator.stern@senate.ca.gov','senator.strickland@senate.ca.gov',
+      'senator.umberg@senate.ca.gov','senator.martinez@senate.ca.gov','senator.wahab@senate.ca.gov',
+      'senator.weberpierson@senate.ca.gov','senator.wiener@senate.ca.gov',
+      // Assemblymembers
+      'assemblymember.addis@assembly.ca.gov','assemblymember.aguiar-curry@assembly.ca.gov','assemblymember.ahrens@assembly.ca.gov',
+      'assemblymember.alanis@assembly.ca.gov','assemblymember.alvarez@assembly.ca.gov','assemblymember.arambula@assembly.ca.gov',
+      'assemblymember.farias@assembly.ca.gov','assemblymember.bains@assembly.ca.gov','assemblymember.bauer-kahan@assembly.ca.gov',
+      'assemblymember.bennett@assembly.ca.gov','assemblymember.berman@assembly.ca.gov','assemblymember.boerner@assembly.ca.gov',
+      'assemblymember.bonta@assembly.ca.gov','assemblymember.bryan@assembly.ca.gov','assemblymember.calderon@assembly.ca.gov',
+      'assemblymember.caloza@assembly.ca.gov','assemblymember.carrillo@assembly.ca.gov','assemblymember.castillo@assembly.ca.gov',
+      'assemblymember.chen@assembly.ca.gov','assemblymember.connolly@assembly.ca.gov','assemblymember.davies@assembly.ca.gov',
+      'assemblymember.demaio@assembly.ca.gov','assemblymember.dixon@assembly.ca.gov','assemblymember.elhawary@assembly.ca.gov',
+      'assemblymember.ellis@assembly.ca.gov','assemblymember.flora@assembly.ca.gov','assemblymember.fong@assembly.ca.gov',
+      'assemblymember.gabriel@assembly.ca.gov','assemblymember.gallagher@assembly.ca.gov','assemblymember.garcia@assembly.ca.gov',
+      'assemblymember.gipson@assembly.ca.gov','assemblymember.gonzalez@assembly.ca.gov','assemblymember.hadwick@assembly.ca.gov',
+      'assemblymember.haney@assembly.ca.gov','assemblymember.harabedian@assembly.ca.gov','assemblymember.hart@assembly.ca.gov',
+      'assemblymember.hoover@assembly.ca.gov','assemblymember.irwin@assembly.ca.gov','assemblymember.jackson@assembly.ca.gov',
+      'assemblymember.johnson@assembly.ca.gov','assemblymember.kalra@assembly.ca.gov','assemblymember.krell@assembly.ca.gov',
+      'assemblymember.lackey@assembly.ca.gov','assemblymember.lee@assembly.ca.gov','assemblymember.lowenthal@assembly.ca.gov',
+      'assemblymember.macedo@assembly.ca.gov','assemblymember.mckinnor@assembly.ca.gov','assemblymember.muratsuchi@assembly.ca.gov',
+      'assemblymember.nguyen@assembly.ca.gov','assemblymember.ortega@assembly.ca.gov','assemblymember.pacheco@assembly.ca.gov',
+      'assemblymember.papan@assembly.ca.gov','assemblymember.patel@assembly.ca.gov','assemblymember.patterson@assembly.ca.gov',
+      'assemblymember.pellerin@assembly.ca.gov','assemblymember.petrie-norris@assembly.ca.gov','assemblymember.quirk-silva@assembly.ca.gov',
+      'assemblymember.ramos@assembly.ca.gov','assemblymember.ransom@assembly.ca.gov','assemblymember.rivas@assembly.ca.gov',
+      'assemblymember.rodriguez@assembly.ca.gov','assemblymember.rogers@assembly.ca.gov','assemblymember.rubio@assembly.ca.gov',
+      'assemblymember.sanchez@assembly.ca.gov','assemblymember.schiavo@assembly.ca.gov','assemblymember.schultz@assembly.ca.gov',
+      'assemblymember.sharp-collins@assembly.ca.gov','assemblymember.solache@assembly.ca.gov','assemblymember.soria@assembly.ca.gov',
+      'assemblymember.stefani@assembly.ca.gov','assemblymember.ta@assembly.ca.gov','assemblymember.tangipa@assembly.ca.gov',
+      'assemblymember.avelino@assembly.ca.gov','assemblymember.wallis@assembly.ca.gov','assemblymember.ward@assembly.ca.gov',
+      'assemblymember.wicks@assembly.ca.gov','assemblymember.wilson@assembly.ca.gov','assemblymember.zbur@assembly.ca.gov',
+      // County Supervisors & Boards (sample)
+      'paloma.aguirre@sdcounty.ca.gov','joel.anderson@sdcounty.ca.gov','Terra.Lawson-Remer@sdcounty.ca.gov',
+      'Monica.MontgomerySteppe@sdcounty.ca.gov','jim.desmond@sdcounty.ca.gov',
+      'district1@rivco.org','district2@rivco.org','D3Email@rivco.org','district4@rivco.org','district5@rivco.org',
+      'Supervisor.Rowe@bos.sbcounty.gov','Supervisor.Baca@bos.sbcounty.gov',
+      'district1@bos.sccgov.org','District2@bos.sccgov.org','supervisor.ellenberg@bos.sccgov.org','district5@bos.sccgov.org'
+    ]));
 
-            // Assemblymembers
-            'assemblymember.addis@assembly.ca.gov',
-            'assemblymember.aguiar-curry@assembly.ca.gov',
-            'assemblymember.ahrens@assembly.ca.gov',
-            'assemblymember.alanis@assembly.ca.gov',
-            'assemblymember.alvarez@assembly.ca.gov',
-            'assemblymember.arambula@assembly.ca.gov',
-            'assemblymember.farias@assembly.ca.gov',
-            'assemblymember.bains@assembly.ca.gov',
-            'assemblymember.bauer-kahan@assembly.ca.gov',
-            'assemblymember.bennett@assembly.ca.gov',
-            'assemblymember.berman@assembly.ca.gov',
-            'assemblymember.boerner@assembly.ca.gov',
-            'assemblymember.bonta@assembly.ca.gov',
-            'assemblymember.bryan@assembly.ca.gov',
-            'assemblymember.calderon@assembly.ca.gov',
-            'assemblymember.caloza@assembly.ca.gov',
-            'assemblymember.carrillo@assembly.ca.gov',
-            'assemblymember.castillo@assembly.ca.gov',
-            'assemblymember.chen@assembly.ca.gov',
-            'assemblymember.connolly@assembly.ca.gov',
-            'assemblymember.davies@assembly.ca.gov',
-            'assemblymember.demaio@assembly.ca.gov',
-            'assemblymember.dixon@assembly.ca.gov',
-            'assemblymember.elhawary@assembly.ca.gov',
-            'assemblymember.ellis@assembly.ca.gov',
-            'assemblymember.flora@assembly.ca.gov',
-            'assemblymember.fong@assembly.ca.gov',
-            'assemblymember.gabriel@assembly.ca.gov',
-            'assemblymember.gallagher@assembly.ca.gov',
-            'assemblymember.garcia@assembly.ca.gov',
-            'assemblymember.gipson@assembly.ca.gov',
-            'assemblymember.gonzalez@assembly.ca.gov',
-            'assemblymember.hadwick@assembly.ca.gov',
-            'assemblymember.haney@assembly.ca.gov',
-            'assemblymember.harabedian@assembly.ca.gov',
-            'assemblymember.hart@assembly.ca.gov',
-            'assemblymember.hoover@assembly.ca.gov',
-            'assemblymember.irwin@assembly.ca.gov',
-            'assemblymember.jackson@assembly.ca.gov',
-            'assemblymember.johnson@assembly.ca.gov',
-            'assemblymember.kalra@assembly.ca.gov',
-            'assemblymember.krell@assembly.ca.gov',
-            'assemblymember.lackey@assembly.ca.gov',
-            'assemblymember.lee@assembly.ca.gov',
-            'assemblymember.lowenthal@assembly.ca.gov',
-            'assemblymember.macedo@assembly.ca.gov',
-            'assemblymember.mckinnor@assembly.ca.gov',
-            'assemblymember.muratsuchi@assembly.ca.gov',
-            'assemblymember.nguyen@assembly.ca.gov',
-            'assemblymember.ortega@assembly.ca.gov',
-            'assemblymember.pacheco@assembly.ca.gov',
-            'assemblymember.papan@assembly.ca.gov',
-            'assemblymember.patel@assembly.ca.gov',
-            'assemblymember.patterson@assembly.ca.gov',
-            'assemblymember.pellerin@assembly.ca.gov',
-            'assemblymember.petrie-norris@assembly.ca.gov',
-            'assemblymember.quirk-silva@assembly.ca.gov',
-            'assemblymember.ramos@assembly.ca.gov',
-            'assemblymember.ransom@assembly.ca.gov',
-            'assemblymember.rivas@assembly.ca.gov',
-            'assemblymember.rodriguez@assembly.ca.gov',
-            'assemblymember.rogers@assembly.ca.gov',
-            'assemblymember.rubio@assembly.ca.gov',
-            'assemblymember.sanchez@assembly.ca.gov',
-            'assemblymember.schiavo@assembly.ca.gov',
-            'assemblymember.schultz@assembly.ca.gov',
-            'assemblymember.sharp-collins@assembly.ca.gov',
-            'assemblymember.solache@assembly.ca.gov',
-            'assemblymember.soria@assembly.ca.gov',
-            'assemblymember.stefani@assembly.ca.gov',
-            'assemblymember.ta@assembly.ca.gov',
-            'assemblymember.tangipa@assembly.ca.gov',
-            'assemblymember.avelino@assembly.ca.gov',
-            'assemblymember.wallis@assembly.ca.gov',
-            'assemblymember.ward@assembly.ca.gov',
-            'assemblymember.wicks@assembly.ca.gov',
-            'assemblymember.wilson@assembly.ca.gov',
-            'assemblymember.zbur@assembly.ca.gov',
+    // EmailJS credentials (ensure these match your EmailJS account/template)
+    const EMAILJS_SERVICE_ID = 'service_n43h3u8';
+    const EMAILJS_TEMPLATE_ID = 'template_v0gjsic';
+    const EMAILJS_PUBLIC_KEY  = '_CFgjIZ4ZpMfSLZW4';
+    emailjs.init(EMAILJS_PUBLIC_KEY);
 
-            // County Supervisors & Boards
-            'paloma.aguirre@sdcounty.ca.gov',
-            'joel.anderson@sdcounty.ca.gov',
-            'Terra.Lawson-Remer@sdcounty.ca.gov',
-            'Monica.MontgomerySteppe@sdcounty.ca.gov',
-            'jim.desmond@sdcounty.ca.gov',
-            'district1@rivco.org',
-            'district2@rivco.org',
-            'D3Email@rivco.org',
-            'district4@rivco.org',
-            'district5@rivco.org',
-            'Supervisor.Rowe@bos.sbcounty.gov',
-            'Supervisor.Baca@bos.sbcounty.gov',
-            'district1@bos.sccgov.org',
-            'District2@bos.sccgov.org',
-            'supervisor.ellenberg@bos.sccgov.org',
-            'district5@bos.sccgov.org'
-        ]));
+    function openEmailModal(){ document.getElementById('emailModal').style.display='block'; document.body.style.overflow='hidden'; }
+    function closeEmailModal(){ document.getElementById('emailModal').style.display='none'; document.body.style.overflow='auto'; clearErrors(); }
+    window.onclick = e => { if (e.target === document.getElementById('emailModal')) closeEmailModal(); };
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEmailModal(); });
 
-        // =========================
-        // EmailJS credentials
-        // =========================
-        const EMAILJS_SERVICE_ID = 'service_n43h3u8';
-        const EMAILJS_TEMPLATE_ID = 'template_v0gjsic';
-        const EMAILJS_PUBLIC_KEY = '_CFgjIZ4ZpMfSLZW4';
-        emailjs.init(EMAILJS_PUBLIC_KEY);
+    function clearErrors(){ document.querySelectorAll('.form-error').forEach(el => el.textContent = ''); }
+    function validateForm(){
+      clearErrors();
+      let ok = true;
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const message   = document.getElementById('message').value.trim();
+      if(!firstName){ document.getElementById('firstNameError').textContent='First name is required'; ok=false; }
+      if(!lastName){  document.getElementById('lastNameError').textContent='Last name is required'; ok=false; }
+      if(!email){     document.getElementById('emailError').textContent='Email is required'; ok=false; }
+      else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ document.getElementById('emailError').textContent='Please enter a valid email address'; ok=false; }
+      if(!message){   document.getElementById('messageError').textContent='Message is required'; ok=false; }
+      return ok;
+    }
 
-        function openEmailModal() {
-            document.getElementById('emailModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-        function closeEmailModal() {
-            document.getElementById('emailModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-            clearErrors();
-        }
-        window.onclick = function(event) {
-            const modal = document.getElementById('emailModal');
-            if (event.target === modal) closeEmailModal();
-        }
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') closeEmailModal();
-        });
-        
-        function clearErrors() {
-            document.querySelectorAll('.form-error').forEach(el => el.textContent = '');
-        }
-        
-        function validateForm() {
-            clearErrors();
-            let isValid = true;
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName  = document.getElementById('lastName').value.trim();
-            const email     = document.getElementById('email').value.trim();
-            const message   = document.getElementById('message').value.trim();
-            
-            if (!firstName) { document.getElementById('firstNameError').textContent = 'First name is required'; isValid = false; }
-            if (!lastName)  { document.getElementById('lastNameError').textContent  = 'Last name is required'; isValid = false; }
-            if (!email)     { document.getElementById('emailError').textContent     = 'Email is required'; isValid = false; }
-            else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address'; isValid = false;
-            }
-            if (!message)   { document.getElementById('messageError').textContent   = 'Message is required'; isValid = false; }
-            return isValid;
-        }
-        
-        function submitEmailForm(event) {
-            event.preventDefault();
-            if (!validateForm()) return;
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            
-            const formData = {
-                firstName: document.getElementById('firstName').value.trim(),
-                lastName: document.getElementById('lastName').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                message: document.getElementById('message').value.trim(),
-                fullName: document.getElementById('firstName').value.trim() + ' ' + document.getElementById('lastName').value.trim()
-            };
-            formData.message += '\n\n' + formData.fullName;
-            
-            // NOTE: Your EmailJS template must have variables like {{to_email}} (or bcc) if you want it to honor this list.
-            const allRecipientsCSV = [PRIMARY_TO, ...RECIPIENTS].join(',');
+    function submitEmailForm(e){
+      e.preventDefault();
+      if(!validateForm()) return;
 
-            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                from_name: formData.fullName,
-                from_email: formData.email,
-                phone: formData.phone,
-                message: formData.message,
-                subject: 'Stories and Information About Home & Community-Based Services (HCBS) in California',
-                to_email: allRecipientsCSV // requires matching variable in your EmailJS template
-            })
-            .then(function() {
-                alert('Your message has been sent. Thank you for sharing information about HCBS.');
-                closeEmailModal();
-                document.getElementById('emailForm').reset();
-                document.getElementById('message').value = `Subject: Stories and Information About Home & Community-Based Services (HCBS) in California
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true; submitBtn.textContent = 'Sending...';
+
+      const formData = {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName:  document.getElementById('lastName').value.trim(),
+        email:     document.getElementById('email').value.trim(),
+        phone:     document.getElementById('phone').value.trim(),
+        message:   document.getElementById('message').value.trim()
+      };
+      const fullName = `${formData.firstName} ${formData.lastName}`;
+      let messageToSend = formData.message + `\n\n${fullName}`;
+      if (formData.email) messageToSend += `\nEmail: ${formData.email}`;
+      if (formData.phone) messageToSend += `\nPhone: ${formData.phone}`;
+
+      const allRecipientsCSV = [PRIMARY_TO, ...RECIPIENTS].join(',');
+
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: fullName,
+        from_email: formData.email,
+        phone: formData.phone,
+        message: messageToSend,
+        subject: 'Information on Home & Community-Based Services (HCBS) in California',
+        to_email: allRecipientsCSV
+      })
+      .then(function(){
+        alert('Your message has been sent. Thank you for sharing information about HCBS.');
+        closeEmailModal();
+        document.getElementById('emailForm').reset();
+        document.getElementById('message').value = `Subject: Information on Home & Community-Based Services (HCBS) in California
 
 Dear California State Leaders,
 
-I am writing to share information about how Home & Community-Based Services (HCBS) benefit people with intellectual and developmental disabilities in my community. These programs promote independence, inclusion, and meaningful employment for thousands of Californians.
+I am writing to share information about Home & Community-Based Services (HCBS) in California and how these programs support people with intellectual and developmental disabilities (IDD) to live, work, and belong in their communities.
 
-I hope this message helps provide insight into the importance of person-centered supports and community-based programs that strengthen opportunities for all Californians.
+What HCBS are:
+• HCBS refers to a range of person-centered supports delivered in homes and communities rather than institutions.
+• Services are tailored to individual goals and needs so people can build skills, relationships, and independence close to family and community.
 
-Thank you for your leadership and commitment to inclusion.
+Examples of supports people may receive:
+• Employment services (job development, on-the-job coaching, workplace accommodations).
+• Independent living skills (budgeting, cooking, travel training, personal organization).
+• Community engagement (volunteering, social participation, recreation, civic activities).
+• Personal assistance and health-related supports delivered in community settings.
+• Assistive technology and transportation that make daily life and work more accessible.
+• Family and caregiver education that promotes stability and inclusion.
+
+Role of Direct Support Professionals (DSPs):
+• DSPs provide day-to-day coaching, skill-building, and support that help people succeed at home, at work, and in the community.
+• A stable, trained DSP workforce contributes to consistent, high-quality services and better outcomes for individuals and families.
+
+Common outcomes associated with HCBS:
+• Increased independence and self-determination.
+• Competitive, integrated employment opportunities.
+• Stronger social connections and reduced isolation.
+• Greater family stability and engagement with community life.
+
+Why this matters for communities:
+• When people receive supports where they live, communities benefit through inclusion, local workforce participation, and the contributions of people with disabilities in civic and economic life.
+
+Neutral resources for additional background:
+• California Department of Developmental Services (DDS): HCBS information and guidance.
+• Administration for Community Living (ACL): Federal overview of person-centered, community-based supports.
+• Centers for Medicare & Medicaid Services (CMS): General HCBS program descriptions.
+
+I hope this information is helpful as you engage with constituents and programs that advance inclusion and opportunity in our state. Thank you for your time and for your service to Californians.
 
 Sincerely,`;
-            })
-            .catch(function(error) {
-                console.log('FAILED...', error);
-                alert('There was an error sending your message. Opening your email app instead so you can send it directly.');
-                fallbackMailto();
-            })
-            .finally(function() {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Email';
-            });
-        }
-        
-        function fallbackMailto() {
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName  = document.getElementById('lastName').value.trim();
-            const email     = document.getElementById('email').value.trim();
-            const phone     = document.getElementById('phone').value.trim();
-            let message     = document.getElementById('message').value.trim();
-            
-            if (firstName && lastName) message += '\n\n' + firstName + ' ' + lastName;
-            if (email) message += '\nEmail: ' + email;
-            if (phone) message += '\nPhone: ' + phone;
+      })
+      .catch(function(err){
+        console.log('FAILED...', err);
+        alert('There was an error sending your message. Opening your email app instead so you can send it directly.');
+        fallbackMailto();
+      })
+      .finally(function(){
+        submitBtn.disabled = false; submitBtn.textContent = 'Send Email';
+      });
+    }
 
-            // Build BCC string (deduped, excluding PRIMARY_TO)
-            const bccList = RECIPIENTS.filter(addr => addr.toLowerCase() !== PRIMARY_TO.toLowerCase()).join(',');
+    function fallbackMailto(){
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const phone     = document.getElementById('phone').value.trim();
+      let message     = document.getElementById('message').value.trim();
 
-            const subject = 'Stories and Information About Home & Community-Based Services (HCBS) in California';
+      if(firstName && lastName) message += `\n\n${firstName} ${lastName}`;
+      if(email) message += `\nEmail: ${email}`;
+      if(phone) message += `\nPhone: ${phone}`;
 
-            // Put Governor in "To", everyone else in BCC to prevent reply-alls
-            const mailtoLink =
-                `mailto:${encodeURIComponent(PRIMARY_TO)}`
-                + `?subject=${encodeURIComponent(subject)}`
-                + `&bcc=${encodeURIComponent(bccList)}`
-                + `&body=${encodeURIComponent(message)}`;
+      const bccList = RECIPIENTS.filter(a => a.toLowerCase() !== PRIMARY_TO.toLowerCase()).join(',');
+      const subject = 'Information on Home & Community-Based Services (HCBS) in California';
 
-            // NOTE: very long mailto links can exceed some email clients' limits.
-            window.open(mailtoLink, '_blank');
-            closeEmailModal();
-        }
-    </script>
+      const mailtoLink =
+        `mailto:${encodeURIComponent(PRIMARY_TO)}`
+        + `?subject=${encodeURIComponent(subject)}`
+        + `&bcc=${encodeURIComponent(bccList)}`
+        + `&body=${encodeURIComponent(message)}`;
+
+      window.open(mailtoLink, '_blank');
+      closeEmailModal();
+    }
+  </script>
 </body>
 </html>
+
 
 
 
