@@ -412,13 +412,159 @@ Sincerely,</textarea>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-        // EmailJS credentials (public key is okay client-side; restrict origins in EmailJS settings)
+        // =========================
+        // Recipients configuration
+        // =========================
+        const PRIMARY_TO = 'governor@ca.gov'; // "To" field
+        // BCC list (deduped from your list)
+        const RECIPIENTS = Array.from(new Set([
+            // Senators
+            'Senator.Allen@Senate.CA.gov',
+            'Senator.Alvarado-Gil@senate.ca.gov',
+            'Senator.Archuleta@senate.ca.gov',
+            'senator.arreguin@senate.ca.gov',
+            'senator.ashby@senate.ca.gov',
+            'senator.becker@senate.ca.gov',
+            'senator.blakespear@senate.ca.gov',
+            'senator.cabaldon@senate.ca.gov',
+            'Senator.caballero@senate.ca.gov',
+            'senator.choi@senate.ca.gov',
+            'senator.cortese@senate.ca.gov',
+            'senator.dahle@senate.ca.gov',
+            'senator.durazo@senate.ca.gov',
+            'senator.gonzalez@senate.ca.gov',
+            'senator.grayson@senate.ca.gov',
+            'senator.grove@senate.ca.gov',
+            'senator.hurtado@senate.ca.gov',
+            'senator.jones@senate.ca.gov',
+            'senator.laird@senate.ca.gov',
+            'senator.limon@senate.ca.gov',
+            'senator.mcguire@senate.ca.gov',
+            'senator.mcnerney@senate.ca.gov',
+            'senator.menjivar@senate.ca.gov',
+            'senator.niello@senate.ca.gov',
+            'Senator.OchoaBogh@Senate.ca.gov',
+            'senator.padilla@senate.ca.gov',
+            'senator.perez@senate.ca.gov',
+            'senator.reyes@senate.ca.gov',
+            'senator.rubio@senate.ca.gov',
+            'senator.seyarto@senate.ca.gov',
+            'senator.smallwood-cuevas@senate.ca.gov',
+            'senator.stern@senate.ca.gov',
+            'senator.strickland@senate.ca.gov',
+            'senator.umberg@senate.ca.gov',
+            'senator.martinez@senate.ca.gov',
+            'senator.wahab@senate.ca.gov',
+            'senator.weberpierson@senate.ca.gov',
+            'senator.wiener@senate.ca.gov',
+
+            // Assemblymembers
+            'assemblymember.addis@assembly.ca.gov',
+            'assemblymember.aguiar-curry@assembly.ca.gov',
+            'assemblymember.ahrens@assembly.ca.gov',
+            'assemblymember.alanis@assembly.ca.gov',
+            'assemblymember.alvarez@assembly.ca.gov',
+            'assemblymember.arambula@assembly.ca.gov',
+            'assemblymember.farias@assembly.ca.gov',
+            'assemblymember.bains@assembly.ca.gov',
+            'assemblymember.bauer-kahan@assembly.ca.gov',
+            'assemblymember.bennett@assembly.ca.gov',
+            'assemblymember.berman@assembly.ca.gov',
+            'assemblymember.boerner@assembly.ca.gov',
+            'assemblymember.bonta@assembly.ca.gov',
+            'assemblymember.bryan@assembly.ca.gov',
+            'assemblymember.calderon@assembly.ca.gov',
+            'assemblymember.caloza@assembly.ca.gov',
+            'assemblymember.carrillo@assembly.ca.gov',
+            'assemblymember.castillo@assembly.ca.gov',
+            'assemblymember.chen@assembly.ca.gov',
+            'assemblymember.connolly@assembly.ca.gov',
+            'assemblymember.davies@assembly.ca.gov',
+            'assemblymember.demaio@assembly.ca.gov',
+            'assemblymember.dixon@assembly.ca.gov',
+            'assemblymember.elhawary@assembly.ca.gov',
+            'assemblymember.ellis@assembly.ca.gov',
+            'assemblymember.flora@assembly.ca.gov',
+            'assemblymember.fong@assembly.ca.gov',
+            'assemblymember.gabriel@assembly.ca.gov',
+            'assemblymember.gallagher@assembly.ca.gov',
+            'assemblymember.garcia@assembly.ca.gov',
+            'assemblymember.gipson@assembly.ca.gov',
+            'assemblymember.gonzalez@assembly.ca.gov',
+            'assemblymember.hadwick@assembly.ca.gov',
+            'assemblymember.haney@assembly.ca.gov',
+            'assemblymember.harabedian@assembly.ca.gov',
+            'assemblymember.hart@assembly.ca.gov',
+            'assemblymember.hoover@assembly.ca.gov',
+            'assemblymember.irwin@assembly.ca.gov',
+            'assemblymember.jackson@assembly.ca.gov',
+            'assemblymember.johnson@assembly.ca.gov',
+            'assemblymember.kalra@assembly.ca.gov',
+            'assemblymember.krell@assembly.ca.gov',
+            'assemblymember.lackey@assembly.ca.gov',
+            'assemblymember.lee@assembly.ca.gov',
+            'assemblymember.lowenthal@assembly.ca.gov',
+            'assemblymember.macedo@assembly.ca.gov',
+            'assemblymember.mckinnor@assembly.ca.gov',
+            'assemblymember.muratsuchi@assembly.ca.gov',
+            'assemblymember.nguyen@assembly.ca.gov',
+            'assemblymember.ortega@assembly.ca.gov',
+            'assemblymember.pacheco@assembly.ca.gov',
+            'assemblymember.papan@assembly.ca.gov',
+            'assemblymember.patel@assembly.ca.gov',
+            'assemblymember.patterson@assembly.ca.gov',
+            'assemblymember.pellerin@assembly.ca.gov',
+            'assemblymember.petrie-norris@assembly.ca.gov',
+            'assemblymember.quirk-silva@assembly.ca.gov',
+            'assemblymember.ramos@assembly.ca.gov',
+            'assemblymember.ransom@assembly.ca.gov',
+            'assemblymember.rivas@assembly.ca.gov',
+            'assemblymember.rodriguez@assembly.ca.gov',
+            'assemblymember.rogers@assembly.ca.gov',
+            'assemblymember.rubio@assembly.ca.gov',
+            'assemblymember.sanchez@assembly.ca.gov',
+            'assemblymember.schiavo@assembly.ca.gov',
+            'assemblymember.schultz@assembly.ca.gov',
+            'assemblymember.sharp-collins@assembly.ca.gov',
+            'assemblymember.solache@assembly.ca.gov',
+            'assemblymember.soria@assembly.ca.gov',
+            'assemblymember.stefani@assembly.ca.gov',
+            'assemblymember.ta@assembly.ca.gov',
+            'assemblymember.tangipa@assembly.ca.gov',
+            'assemblymember.avelino@assembly.ca.gov',
+            'assemblymember.wallis@assembly.ca.gov',
+            'assemblymember.ward@assembly.ca.gov',
+            'assemblymember.wicks@assembly.ca.gov',
+            'assemblymember.wilson@assembly.ca.gov',
+            'assemblymember.zbur@assembly.ca.gov',
+
+            // County Supervisors & Boards
+            'paloma.aguirre@sdcounty.ca.gov',
+            'joel.anderson@sdcounty.ca.gov',
+            'Terra.Lawson-Remer@sdcounty.ca.gov',
+            'Monica.MontgomerySteppe@sdcounty.ca.gov',
+            'jim.desmond@sdcounty.ca.gov',
+            'district1@rivco.org',
+            'district2@rivco.org',
+            'D3Email@rivco.org',
+            'district4@rivco.org',
+            'district5@rivco.org',
+            'Supervisor.Rowe@bos.sbcounty.gov',
+            'Supervisor.Baca@bos.sbcounty.gov',
+            'district1@bos.sccgov.org',
+            'District2@bos.sccgov.org',
+            'supervisor.ellenberg@bos.sccgov.org',
+            'district5@bos.sccgov.org'
+        ]));
+
+        // =========================
+        // EmailJS credentials
+        // =========================
         const EMAILJS_SERVICE_ID = 'service_n43h3u8';
         const EMAILJS_TEMPLATE_ID = 'template_v0gjsic';
         const EMAILJS_PUBLIC_KEY = '_CFgjIZ4ZpMfSLZW4';
-        
         emailjs.init(EMAILJS_PUBLIC_KEY);
-        
+
         function openEmailModal() {
             document.getElementById('emailModal').style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -476,12 +622,16 @@ Sincerely,</textarea>
             };
             formData.message += '\n\n' + formData.fullName;
             
+            // NOTE: Your EmailJS template must have variables like {{to_email}} (or bcc) if you want it to honor this list.
+            const allRecipientsCSV = [PRIMARY_TO, ...RECIPIENTS].join(',');
+
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                 from_name: formData.fullName,
                 from_email: formData.email,
                 phone: formData.phone,
                 message: formData.message,
-                subject: 'Protect Home and Community-Based Services (HCBS) in California'
+                subject: 'Protect Home and Community-Based Services (HCBS) in California',
+                to_email: allRecipientsCSV // requires matching variable in your EmailJS template
             })
             .then(function() {
                 alert('Your message has been sent successfully! Thank you for advocating for HCBS funding.');
@@ -506,7 +656,7 @@ Sincerely,`;
             })
             .catch(function(error) {
                 console.log('FAILED...', error);
-                alert('There was an error sending your message. Please try the fallback option below or contact your representatives directly.');
+                alert('There was an error sending your message. Opening your email app instead so you can send it directly.');
                 fallbackMailto();
             })
             .finally(function() {
@@ -525,14 +675,25 @@ Sincerely,`;
             if (firstName && lastName) message += '\n\n' + firstName + ' ' + lastName;
             if (email) message += '\nEmail: ' + email;
             if (phone) message += '\nPhone: ' + phone;
-            
+
+            // Build BCC string (deduped, excluding PRIMARY_TO)
+            const bccList = RECIPIENTS.filter(addr => addr.toLowerCase() !== PRIMARY_TO.toLowerCase()).join(',');
+
             const subject = 'Protect Home and Community-Based Services (HCBS) in California';
-            const recipients = 'governor@ca.gov';
-            const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+            // Put Governor in "To", everyone else in BCC to prevent reply-alls
+            const mailtoLink =
+                `mailto:${encodeURIComponent(PRIMARY_TO)}`
+                + `?subject=${encodeURIComponent(subject)}`
+                + `&bcc=${encodeURIComponent(bccList)}`
+                + `&body=${encodeURIComponent(message)}`;
+
+            // NOTE: very long mailto links can exceed some email clients' limits.
             window.open(mailtoLink, '_blank');
             closeEmailModal();
         }
     </script>
 </body>
 </html>
+
 
