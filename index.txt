@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Protect Home and Community-Based Services in California</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body { box-sizing: border-box; }
+    :root {
+      --ofa-white:#ffffff; --ofa-blue:#2067ce; --ofa-orange:#ff6d00; --ofa-dark:#211c1d;
+      --ofa-gray:#565656; --ofa-light-orange:#ffa76c; --ofa-pale-orange:#ffd4b8;
+      --ofa-light-blue:#e2efff; --ofa-medium-blue:#64a4f2;
+    }
+    .section-spacing{padding:4rem 0}
+    .card-hover{transition:transform .3s ease,box-shadow .3s ease}
+    .card-hover:hover{transform:translateY(-4px);box-shadow:0 20px 25px -5px rgba(0,0,0,.1)}
+    .quote-card{background:var(--ofa-light-blue);border-left:4px solid var(--ofa-blue)}
+    .logo{height:40px;width:auto}
+    html,body{height:100%}
+    /* Modal */
+    .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;
+      background:rgba(0,0,0,.5);backdrop-filter:blur(5px)}
+    .modal-content{background:#fff;margin:5% auto;padding:0;border-radius:12px;width:90%;
+      max-width:600px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 50px -12px rgba(0,0,0,.25);
+      animation:modalSlideIn .3s ease-out}
+    @keyframes modalSlideIn{from{opacity:0;transform:translateY(-50px) scale(.95)}
+      to{opacity:1;transform:translateY(0) scale(1)}}
+    .modal-header{padding:24px 24px 0;border-bottom:1px solid #e5e7eb}
+    .modal-body{padding:24px}
+    .close{color:#6b7280;float:right;font-size:28px;font-weight:bold;cursor:pointer;line-height:1;
+      padding:0;background:none;border:none}
+    .close:hover{color:#374151}
+    .form-group{margin-bottom:16px}
+    .form-label{display:block;margin-bottom:6px;font-weight:600;color:var(--ofa-dark)}
+    .form-input{width:100%;padding:12px;border:2px solid #e5e7eb;border-radius:8px;font-size:16px;
+      transition:border-color .2s ease;box-sizing:border-box}
+    .form-input:focus{outline:none;border-color:var(--ofa-blue);box-shadow:0 0 0 3px rgba(32,103,206,.1)}
+    .form-textarea{min-height:200px;resize:vertical;font-family:inherit}
+    .form-error{color:#dc2626;font-size:14px;margin-top:4px}
+    .btn-primary{background:var(--ofa-blue);color:#fff;padding:12px 24px;border:none;border-radius:8px;
+      font-size:16px;font-weight:600;cursor:pointer;transition:background-color .2s ease;width:100%}
+    .btn-primary:hover{background:#1d4ed8}
+    .btn-secondary{background:transparent;color:var(--ofa-gray);padding:12px 24px;border:2px solid #e5e7eb;
+      border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s ease;width:100%;margin-top:12px}
+    .btn-secondary:hover{border-color:var(--ofa-blue);color:var(--ofa-blue)}
+  </style>
+</head>
+<body class="font-sans text-gray-800 leading-relaxed">
+
+  <!-- HEADER -->
+  <header style="background-color:var(--ofa-white)" class="shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <a href="https://optionsforall.org/" target="_blank">
+        <img src="https://optionsforall.org/wp-content/themes/elevation_theme/assets/images/logo.svg"
+             alt="Options For All Logo" class="logo hover:opacity-80"/>
+      </a>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#why-hcbs" class="hover:opacity-80 text-gray-600">Why HCBS Matters</a>
+        <a href="#priorities" class="hover:opacity-80 text-gray-600">Our Priorities</a>
+        <a href="#impact" class="hover:opacity-80 text-gray-600">Community Impact</a>
+        <a href="#help" class="hover:opacity-80 text-gray-600">Take Action</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative text-white overflow-hidden"
+    style="background:linear-gradient(135deg,rgba(32,103,206,.9),rgba(100,164,242,.9)),url('https://optionsforall.org/wp-content/themes/elevation_theme/assets/images/program-inquiry_photo-background.jpg');background-size:cover;background-position:center">
+    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+    <div class="relative max-w-7xl mx-auto px-4 py-20 text-center">
+      <h1 class="text-5xl font-bold mb-6 drop-shadow-lg">Protect Home and Community-Based Services in California</h1>
+      <p class="text-xl mb-10 drop-shadow-md">Together, we can ensure Californians with disabilities continue to live, work, and thrive in their communities.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button onclick="openEmailModal()" style="background-color:var(--ofa-orange)" class="px-8 py-4 rounded-lg font-semibold text-lg text-white hover:opacity-90 shadow-lg">📧 Email Your Representative</button>
+        <button onclick="document.getElementById('priorities').scrollIntoView({behavior:'smooth'})" class="px-8 py-4 rounded-lg font-semibold text-lg border-2 border-white hover:opacity-80">Support HCBS Funding</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIORITIES -->
+  <section id="priorities" class="section-spacing bg-white text-center">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-4">Our Call to State Leaders</h2>
+      <p class="text-xl text-gray-600 mb-10">We respectfully ask for partnership in advancing three key priorities:</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="p-8 rounded-xl bg-orange-100 card-hover">
+          <div class="text-4xl mb-4">🛡️</div>
+          <h3 class="text-xl font-semibold mb-4">1. Protect IDD Funding</h3>
+          <p class="text-gray-600">Ensure the Lanterman Act remains strong by protecting funding for community-based services.</p>
+        </div>
+        <div class="p-8 rounded-xl bg-blue-100 card-hover">
+          <div class="text-4xl mb-4">💰</div>
+          <h3 class="text-xl font-semibold mb-4">2. Fully Fund AB 2423</h3>
+          <p class="text-gray-600">Without full funding, rate reform progress could be lost—threatening access and provider stability.</p>
+        </div>
+        <div class="p-8 rounded-xl bg-orange-100 card-hover">
+          <div class="text-4xl mb-4">👥</div>
+          <h3 class="text-xl font-semibold mb-4">3. Ensure Competitive Wages</h3>
+          <p class="text-gray-600">Direct Support Professionals are the backbone of IDD services. Rates must keep pace with costs of living.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HELP SECTION -->
+  <section id="help" class="section-spacing bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-10 text-center text-gray-800">We Need Your Voice</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="p-8 rounded-xl bg-orange-100">
+          <h3 class="text-2xl font-semibold mb-4 text-gray-800">For Families and Staff</h3>
+          <p class="text-gray-600 mb-6">Share how HCBS has made a difference in your life.</p>
+          <button onclick="openEmailModal()" class="w-full px-6 py-3 mb-3 rounded-lg font-semibold hover:opacity-90" style="background-color:var(--ofa-blue);color:white;">📧 Email Your Representative</button>
+          <button id="story-form"
+            onclick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=YRPNOiNaD064TtYmvbMSXmTrvW8Vv2ZPntPzkZ8Bk8lUMFMyRUxMOUNCNVpVWjE5QTVFUVNDNTZQMC4u','_blank')"
+            class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90"
+            style="background-color:var(--ofa-orange);color:white;">📝 Share Your Story</button>
+        </div>
+        <div class="p-8 rounded-xl bg-blue-100">
+          <h3 class="text-2xl font-semibold mb-4 text-gray-800">For Legislators</h3>
+          <p class="text-gray-600 mb-6">Protect HCBS in the state budget and ensure the workforce receives fair, competitive wages.</p>
+          <button onclick="window.open('https://www.canva.com/design/DAG2p3K6vI8/Iyb1Z8uuxI6LWOJXs179Cw/view?utm_content=DAG2p3K6vI8&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h994fb862a6','_blank')"
+            class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-90"
+            style="background-color:var(--ofa-orange);color:white;">📋 Download Advocacy Toolkit</button>
+          <button onclick="document.getElementById('priorities').scrollIntoView({behavior:'smooth'})"
+            class="w-full px-6 py-3 rounded-lg font-semibold hover:opacity-80 mt-3 border-2 border-blue-500 text-blue-600 bg-transparent">📊 View Our Priorities</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="section-spacing bg-gray-900 text-white text-center">
+    <p class="max-w-3xl mx-auto">This campaign is led by Options For All, in partnership with California's network of HCBS providers, advocates, and community partners.</p>
+    <p class="mt-6"><a href="mailto:info@optionsforall.org" class="underline">info@optionsforall.org</a> • <a href="https://optionsforall.org" target="_blank" class="underline">optionsforall.org</a></p>
+  </footer>
+
+  <!-- EMAIL MODAL + SCRIPT (SAME AS BEFORE) -->
+  <div id="emailModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 style="color:var(--ofa-dark);margin:0;font-size:24px;font-weight:bold">Email Your Representatives</h2>
+        <button class="close" onclick="closeEmailModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="emailForm" onsubmit="submitEmailForm(event)">
+          <div class="form-group"><label class="form-label">Name *</label><input id="firstName" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">Email *</label><input id="email" type="email" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">Message *</label><textarea id="message" class="form-input form-textarea" required>Subject: Protect HCBS in California</textarea></div>
+          <button type="submit" class="btn-primary" id="submitBtn">Send Email</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    const EMAILJS_SERVICE_ID='service_n43h3u8', EMAILJS_TEMPLATE_ID='template_v0gjsic', EMAILJS_PUBLIC_KEY='_CFgjIZ4ZpMfSLZW4';
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+    function openEmailModal(){document.getElementById('emailModal').style.display='block';document.body.style.overflow='hidden';}
+    function closeEmailModal(){document.getElementById('emailModal').style.display='none';document.body.style.overflow='auto';}
+    function submitEmailForm(e){
+      e.preventDefault();
+      const btn=document.getElementById('submitBtn');
+      btn.disabled=true;btn.textContent='Sending...';
+      const data={from_name:document.getElementById('firstName').value.trim(),
+                  from_email:document.getElementById('email').value.trim(),
+                  message:document.getElementById('message').value.trim()};
+      emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,data)
+      .then(()=>{alert('Message sent!');closeEmailModal();})
+      .catch(()=>alert('Error sending message.'))
+      .finally(()=>{btn.disabled=false;btn.textContent='Send Email';});
+    }
+  </script>
+</body>
+</html>
